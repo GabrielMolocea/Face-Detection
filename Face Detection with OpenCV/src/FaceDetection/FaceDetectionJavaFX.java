@@ -4,6 +4,7 @@ import javafx.scene.*;
 import javafx.scene.image.*;
 import javafx.stage.*;
 import org.opencv.core.*;
+import org.opencv.videoio.*;
 
 import java.io.*;
 
@@ -56,6 +57,24 @@ public class FaceDetectionJavaFX {
         // Loading OpenCV core library
         System.loadLibrary(Core.NATIVE_LIBRARY_NAME);
         
+        // Initializing VideoCapture class
+        VideoCapture videoCapture = new VideoCapture(0);
+        
+        // Reading next frame from camera
+        Mat matrix = new Mat();
+        videoCapture.read(matrix);
+        
+        // Flag to determinate if camera is open
+        if (!videoCapture.isOpened()) { // Messages are temporary. Will put dialog box
+            System.out.println("Camera not detected");
+        } else {
+            System.out.println("Camera detected");
+        }
+        
+        // If there is video stream
+        if (videoCapture.read(matrix)) {
+        
+        }
     }
     
     public void saveImage() {

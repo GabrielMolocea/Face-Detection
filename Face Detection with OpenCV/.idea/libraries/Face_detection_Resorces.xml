@@ -1,0 +1,16 @@
+<component name="libraryTable">
+  <library name="Face detection Resorces">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../Face detection Resorces" />
+    </CLASSES>
+    <JAVADOC />
+    <NATIVE>
+      <root url="file://$PROJECT_DIR$/../Face detection Resorces" />
+    </NATIVE>
+    <SOURCES>
+      <root url="file://$PROJECT_DIR$/../Face detection Resorces" />
+    </SOURCES>
+    <jarDirectory url="file://$PROJECT_DIR$/../Face detection Resorces" recursive="false" />
+    <jarDirectory url="file://$PROJECT_DIR$/../Face detection Resorces" recursive="false" type="SOURCES" />
+  </library>
+</component>

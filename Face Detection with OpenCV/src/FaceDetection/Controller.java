@@ -71,6 +71,30 @@ public class Controller {
         this.capture = new VideoCapture();
         this.faceCascade = new CascadeClassifier();
         this.absoluteFaceSize = 0;
+        
+        // Disabling 'New User' functionality
+        this.newUserName.setDisable(true);
+        this.newUserNameSubmit.setDisable(true);
+        // Takes some time thus use only when training set
+        // was updated
+        // trainModel();
+        
+    }
+
+    /**
+     * The action function when activating a button in GUI
+     */
+    
+    @FXML
+    protected void startCamera() {
+        
+        // Preserve imagine ratio
+        cameraFrame.setPreserveRatio(true);
+        
+        // Checking if camera is active
+        if (!this.cameraActive) {
+            
+        }
     }
     
 }

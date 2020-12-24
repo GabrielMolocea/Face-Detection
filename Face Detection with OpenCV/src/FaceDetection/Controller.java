@@ -94,6 +94,17 @@ public class Controller {
         // Checking if camera is active
         if (!this.cameraActive) {
             
+            // Disabling settings checkbox
+            this.haarClassifier.setDisable(true);
+            this.lbpClassifier.setDisable(true);
+            
+            // Disabling new User checkbox
+            this.newUser.setDisable(true);
+            
+            // Start video capture
+            // built-in laptop cam
+            this.capture.open(0);
+            
         }
     }
     

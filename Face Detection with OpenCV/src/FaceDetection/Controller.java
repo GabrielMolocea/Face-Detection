@@ -105,6 +105,17 @@ public class Controller {
             // built-in laptop cam
             this.capture.open(0);
             
+            // Checking if video stream is available
+            if(this.capture.isOpened()) {
+                
+                this.cameraActive = true;
+                
+                // Grabbing a frame every 33 ms (30 frames/sec)
+                Runnable frameGrabber = () -> {
+                    Image imageToShow = grabeFrame();
+                    cameraFrame.setImage(imageToShow);
+                };
+            }
         }
     }
     

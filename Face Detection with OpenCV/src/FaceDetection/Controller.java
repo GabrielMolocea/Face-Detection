@@ -1,15 +1,41 @@
 package FaceDetection;
 
-import javafx.fxml.*;
-import javafx.scene.control.*;
-import javafx.scene.image.*;
-import org.opencv.core.*;
-import org.opencv.objdetect.*;
-import org.opencv.videoio.*;
 
-import java.util.*;
-import java.util.concurrent.*;
+import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.FilenameFilter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
+import org.opencv.core.Core;
+import org.opencv.core.CvType;
+import org.opencv.core.Mat;
+import org.opencv.core.MatOfByte;
+import org.opencv.core.MatOfRect;
+import org.opencv.core.Point;
+import org.opencv.core.Rect;
+import org.opencv.core.Scalar;
+import org.opencv.core.Size;
+import org.opencv.face.Face;
+import org.opencv.face.FaceRecognizer;
+import org.opencv.imgcodecs.Imgcodecs;
+import org.opencv.imgproc.Imgproc;
+import org.opencv.objdetect.CascadeClassifier;
+import org.opencv.objdetect.Objdetect;
+import org.opencv.videoio.VideoCapture;
+
+
+import javafx.event.Event;
+import javafx.fxml.FXML;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 /**
  * The controller associated with the only view of our application.
  * The application logic is implemented here. It handles the button for starting/stopping the camera,
@@ -197,5 +223,53 @@ public class Controller {
             }
         }
         return imageShow;
+    }
+    
+    private void trainModel() {
+        
+        File root = new File("resources" + File.separator + "trainingset" +File.separator + "combined" + File.separator);
+        
+        FilenameFilter imgFilter = (dir, name) -> {
+            name = name.toLowerCase();
+            return name.endsWith(".png");
+        };
+        
+        File[] imageFiles = root.listFiles(imgFilter);
+        
+        List<Mat> images = new ArrayList<>();
+    
+        System.out.println("THE NUMBER OF IMAGES READ IS: " + imageFiles.length);
+    
+        Mat labels = new Mat(imageFiles.length, 1, CvType.CV_32SC1);
+        
+        int counter = 0;
+        
+        for (File image : imageFiles) {
+            
+            // Parsing training set folder files
+            Mat img = Imgcodecs.imread(image.getAbsolutePath());
+            
+            // Changing the Grayscale end equalize the histogram
+            Imgproc.cvtColor(img, img, Imgproc.COLOR_BGR2GRAY);
+            Imgproc.equalizeHist(img, img);
+            
+            // Extracting the label from file name
+            int label = Integer.parseInt(image.getName().split("\\-")[0]);
+            
+            // Extracting name from file name and adding it to names HasMap
+            String labName = image.getName().split("\\_")[0];
+            String name = labName.split("\\-")[1];
+            listOfNames.put(label, name);
+            
+            // Adding training set images to images Mat
+            images.add(img);
+            
+            labels.put(counter, 0, label);
+            counter++;
+        }
+        FaceRecognizer faceRecognizer = Face.createFisherFaceRecognizer(0,1500);
+        faceRecognizer.train(images, labels);
+        faceRecognizer.save("traineddata");
+        
     }
 }

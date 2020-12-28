@@ -272,4 +272,28 @@ public class Controller {
         faceRecognizer.save("traineddata");
         
     }
+    
+    /**
+     * Method for face recognition
+     *  grabs the detected face and matches it with
+     *  the training set. If recognized the name of
+     * 	 the person is printed below the face rectangle
+     * 	 @return
+     */
+    
+    public double[] faceRecognition(Mat currentFace) {
+        int[] predLabel = new int[1];
+        double[] confidence = new double[1];
+        int result = -1;
+        
+        // Create a face recognizer. We need to specify the threshold so that
+        // unknown faces would return '-1' label
+        // unknown faces would return '-1' label
+        FaceRecognizer faceRecognizer = Face.createFisherFaceRecognizer(0,1500);
+        faceRecognizer.load("traineddata");
+        faceRecognizer.predict(currentFace,predLabel,confidence);
+        result = predLabel[0];
+    
+        return new double[] {result,confidence[0]};
+    }
 }

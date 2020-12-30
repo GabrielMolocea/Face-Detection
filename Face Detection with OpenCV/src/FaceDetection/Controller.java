@@ -296,4 +296,22 @@ public class Controller {
     
         return new double[] {result,confidence[0]};
     }
+    
+    /**
+     * Method for face detection and tracking
+     *  @param frame it looks for faces in this frame
+     */
+    public void detectAndDisplay(Mat frame) {
+        
+        MatOfRect faces = new MatOfRect();
+        Mat grayFrame = new Mat();
+        
+        // Converting frame into gray scale
+        Imgproc.cvtColor(frame, grayFrame, Imgproc.COLOR_BGR2GRAY);
+        // Equalizing the frame histogram to improve the result
+        Imgproc.equalizeHist(grayFrame, grayFrame);
+        
+        
+        
+    }
 }

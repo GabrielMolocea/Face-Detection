@@ -311,7 +311,14 @@ public class Controller {
         // Equalizing the frame histogram to improve the result
         Imgproc.equalizeHist(grayFrame, grayFrame);
         
-        
+        // compute minimum face size (20% of the frame height, in our case)
+        if (this.absoluteFaceSize == 0 ) {
+            int height = grayFrame.rows();
+            if (Math.round(height * 0.2f) > 0)
+            {
+                this.absoluteFaceSize = Math.round(height * 0.2f);
+            }
+        }
         
     }
 }

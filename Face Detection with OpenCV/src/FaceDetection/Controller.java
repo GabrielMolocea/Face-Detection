@@ -320,5 +320,19 @@ public class Controller {
             }
         }
         
+        // Face detection
+        this.faceCascade.detectMultiScale(grayFrame, faces, 1.1, 2, 0| Objdetect.CASCADE_SCALE_IMAGE,
+                new Size(this.absoluteFaceSize, this.absoluteFaceSize), new Size());
+        
+        // Each rectangle in faces is a face: draw them!
+        Rect[] facesArray = faces.toArray();
+        for (int i = 0; i < facesArray.length; i++) {
+            Imgproc.rectangle(frame, facesArray[i].tl(), facesArray[i].br(), new Scalar(0, 255, 0),3);// Green color)
+            
+            // Cropping the detected faces
+            Rect rectCrop = new Rect(facesArray[i].tl(), facesArray[i].br());
+            Mat croppedImage = new Mat(frame, rectCrop);
+            
+        }
     }
 }

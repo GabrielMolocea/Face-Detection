@@ -333,6 +333,40 @@ public class Controller {
             Rect rectCrop = new Rect(facesArray[i].tl(), facesArray[i].br());
             Mat croppedImage = new Mat(frame, rectCrop);
             
+            // Changing the gray scale
+            Imgproc.cvtColor(croppedImage, croppedImage, Imgproc.COLOR_BGR2GRAY);
+            
+            // Equalizing the histogram
+            Imgproc.equalizeHist(croppedImage, croppedImage);
+            
+            // Resizing the image to a default size
+            Mat resizeImage = new Mat();
+            Size size = new Size(250, 250);
+            Imgproc.resize(croppedImage, resizeImage, size);
+            
+            // Checking if "New User" checkbox is selected
+            // if is selected starting training data (50 images should be enough)
+            if (newUser.isSelected() && !newName.isEmpty()) {
+                if (index < 50) {
+                    Imgcodecs.imwrite("resources" + File.separator + "trainingset"+ File.separator + "combined" + File.separator + random + "-" +
+                            newName + "_" + (index++) + "+png", resizeImage);
+                    
+                }
+                
+            }
+            
+            double[] returnedResults = faceRecognition(resizeImage);
+            double prediction = returnedResults[0];
+            double confidence = returnedResults[1];
+            
+            int label = (int) prediction;
+            String name = "";
+            if (listOfNames.containsKey(label)) {
+                name = listOfNames.get(label);
+            } else {
+                name = "Unknown";
+            }
+            
         }
     }
 }

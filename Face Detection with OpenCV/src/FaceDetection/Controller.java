@@ -367,6 +367,28 @@ public class Controller {
                 name = "Unknown";
             }
             
+            // Creating the text that will annotate the box with
+            String boxText = "Prediction = " + name + " Confidence = " +confidence;
+            
+            // Calculating the position for annotated text (make sure we don't
+            // put illegal values in there)
+            double posX = Math.max(facesArray[i].tl().x - 10, 0);
+            double posY = Math.max(facesArray[i].tl().y -10, 0);
+            
+            // Putting it into the image
+            Imgproc.putText(frame, boxText, new Point(posX, posY),
+                    Core.FONT_HERSHEY_PLAIN, 1.0, new Scalar(0, 255, 0, 2.0));
         }
     }
+    
+    
+    @FXML
+    protected void  newUserNameSubmitted() {
+        if (newUserName.getText() != null && !newUserName.getText().isEmpty()) {
+            newName = newUserName.getText();
+            newUserName.clear();
+        }
+    }
+    
+    
 }

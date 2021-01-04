@@ -390,5 +390,18 @@ public class Controller {
         }
     }
     
+    /**
+     * The action triggered by selecting the Haar Classifier checkbox. It loads
+     * the trained set to be used for frontal face detection.
+     */
     
+    @FXML
+    protected void haarSelected(Event event) {
+        // Checking whether the lpb checkbox is selected and deselect it
+        if (this.lbpClassifier.isSelected()) {
+            this.lbpClassifier.setSelected(false);
+        }
+        this.checkboxSelection("resources" + File.separator + "haarcascades" + File.separator+ "haarcascade_frontalface_alt.xml");
+        
+    }
 }

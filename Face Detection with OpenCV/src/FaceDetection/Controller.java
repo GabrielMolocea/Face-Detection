@@ -396,12 +396,37 @@ public class Controller {
      */
     
     @FXML
-    protected void haarSelected(Event event) {
+    protected void lbpSelected(Event event) {
         // Checking whether the lpb checkbox is selected and deselect it
         if (this.lbpClassifier.isSelected()) {
             this.lbpClassifier.setSelected(false);
         }
-        this.checkboxSelection("resources" + File.separator + "haarcascades" + File.separator+ "haarcascade_frontalface_alt.xml");
-        
+        this.checkboxSelection("resources" + File.separator + "lbpcascades" + File.separator+ "lbpcascade_frontalface_alt.xml");
     }
+    
+    /**
+     * The action triggered by selecting the LBP Classifier checkbox. It loads
+     * the trained set to be used for frontal face detection.
+     */
+    
+    @FXML
+    protected void haarSelected(Event event) {
+        //Checking whether the haar checkbox is selected and deselect it
+        if(this.haarClassifier.isSelected()) {
+            this.haarClassifier.setSelected(false);
+        }
+        this.checkboxSelection("resources" + File.separator + "haarcascades" + File.separator+ "haarcascade_frontalface_alt.xml");
+    }
+    
+    @FXML
+    protected void newUserSelected(Event event) {
+        if (this.newUser.isSelected()) {
+            this.newUserNameSubmit.setDisable(false);
+            this.newUserName.setDisable(false);
+        } else {
+            this.newUserNameSubmit.setDisable(true);
+            this.newUserName.setDisable(true);
+        }
+    }
+    
 }

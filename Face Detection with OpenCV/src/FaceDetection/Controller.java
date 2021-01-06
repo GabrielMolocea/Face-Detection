@@ -429,4 +429,31 @@ public class Controller {
         }
     }
     
+    /**
+     * Method for loading a classifier trained set from disk
+     * @param classifierPath the path on disk where a classifier trained set is located
+     */
+    
+    private void checkboxSelection(String classifierPath) {
+        // Loading the classifier(s)
+        this.faceCascade.load(classifierPath);
+        
+        // bew tge video capture can start
+        this.cameraButton.setDisable(false);
+    }
+    
+    /**
+     * Convert a Mat object (OpenCV) in the corresponding Image for JavaFX
+     * @param frame the {@link Mat} representing the current frame
+     * @return the {@link Image} to show
+     */
+    
+    private Image mat2Image(Mat frame) {
+        // Creating a temporary buffer
+        MatOfByte buffer = new MatOfByte();
+        // Encoding the frame in the buffer, according to tge PNG format
+        Imgcodecs.imencode(".png", frame, buffer);
+        // Build and return an Image created from the image encoded in the buffer
+        return new Image(new ByteArrayInputStream(buffer.toArray()));
+    }
 }

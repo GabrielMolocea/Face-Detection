@@ -7,6 +7,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.control.TextField?>
 <BorderPane fx:controller="FaceDetection.Controller"
             xmlns:fx="http://javafx.com/fxml" prefHeight="517.0" prefWidth="546.0">
     <top>
@@ -18,9 +21,47 @@
                     </padding>
                     <children>
                         <CheckBox fx:id="haarClassifier" onAction="#haarSelected" text="Haar Classifier"/>
+                        <CheckBox fx:id="lbpClassifier" onAction="#lbpSelected" text="LBP Classifier"/>
                     </children>
                 </HBox>
+                <Separator/>
             </children>
         </VBox>
     </top>
+    <center>
+        <VBox alignment="CENTER">
+            <padding>
+                <Insets left="10" right="10"/>
+            </padding>
+            <children>
+                <ImageView fx:id="cameraFrame"/>
+            </children>
+        </VBox>
+    </center>
+    <bottom>
+        <HBox alignment="CENTER">
+            <padding>
+                <Insets bottom="25" left="25" right="25" top="25"/>
+            </padding>
+            <children>
+                <Button fx:id="cameraButton" alignment="CENTER" disable="true" onAction="#startCamera"
+                        text="Start Camera"/>
+                <CheckBox fx:id="newUser" onAction="#newUserSelected" text="New User">
+                    <HBox.margin>
+                        <Insets left="40.0"/>
+                    </HBox.margin>
+                </CheckBox>
+                <TextField fx:id="newUserName" prefHeight="25.0" prefWidth="130.0" promptText="Enter your name">
+                    <HBox.margin>
+                        <Insets left="20.0"/>
+                    </HBox.margin>
+                </TextField>
+                <Button fx:id="newUserNameSubmit" onAction="#newUserNameSubmitted" text="Submit">
+                    <HBox.margin>
+                        <Insets left="20.0"/>
+                    </HBox.margin>
+                </Button>
+            </children>
+        </HBox>
+    </bottom>
 </BorderPane>

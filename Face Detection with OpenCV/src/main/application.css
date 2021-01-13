@@ -1,0 +1,7 @@
+.root {
+    -fx-background-color: whitesmoke;
+}
+
+.button {
+    -fx-background-radius: 16px;
+}
